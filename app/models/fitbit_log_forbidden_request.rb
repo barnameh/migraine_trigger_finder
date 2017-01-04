@@ -1,0 +1,2 @@
+class FitbitLogBadForbiddenRequest < StandardError
+end

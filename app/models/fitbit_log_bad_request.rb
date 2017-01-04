@@ -1,0 +1,2 @@
+class FitbitLogBadRequest < StandardError
+end

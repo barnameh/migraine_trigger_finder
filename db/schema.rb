@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223114004) do
+ActiveRecord::Schema.define(version: 20161223173306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20161223114004) do
     t.string  "token"
     t.string  "refresh_token"
     t.integer "expires_at"
+    t.string  "full_name"
     t.index ["fitbit_user_id"], name: "index_users_on_fitbit_user_id", unique: true, using: :btree
   end
 

@@ -1,0 +1,2 @@
+class FitbitLogBadRefreshToken < StandardError
+end

@@ -4,8 +4,10 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one:
+  fitbit_user_id: ffeeff
 # column: value
 #
-two: {}
+two:
+  fitbit_user_id: ffeedd
 # column: value

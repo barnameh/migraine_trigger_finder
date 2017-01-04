@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   # root 'welcome#index'
 
   # Provides a button to launch auth
-    root "fitbit_auth#index"
+  root "fitbit_auth#index"
 
   # fitbit oauth
-  post "/auth/fitbit" => "fitbit_auth#make_request"
-  get "/auth/fitbit/callback" => "fitbit_auth#get_response"
+  get "/auth/fitbit", controller: "fitbit_auth", action: "make_request"
+  get "/auth/fitbit/callback", controller: "fitbit_auth", action: "get_response"
+
+  resources :welcome, only: [:index]
 end

@@ -1,0 +1,2 @@
+class FitbitLogBadResourceNotFound < StandardError
+end

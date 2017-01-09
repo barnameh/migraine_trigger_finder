@@ -1,0 +1,40 @@
+<h1>Episodes#new</h1>
+
+<%= form_for @episode do |f| %>
+
+<%= f.datetime_select :start_date_time, :ampm => true, :minute_step => 5 %>
+<br> <br>
+
+<%= f.datetime_select :end_date_time, :ampm => true, :minute_step => 5 %>
+<br> <br>
+
+<%= f.label :intensity %>
+<%= f.range_field :intensity, in: 1..10, step: 1 %>
+<br><br>
+
+<% @episode.symptoms.keys.each do |key| %>
+  <div class="symptoms">
+    <%= f.label key %>
+    <% if @episode.symptoms[key] == nil %>
+      <%= check_box_tag "symptoms[" + key + "]", @episode.symptoms[key] %>
+    <% else %>
+      <%= check_box_tag "symptoms[" + key + "]", @episode.symptoms[key], checked: true %>
+    <% end %>
+  </div>
+<% end %>
+<br><br>
+
+<% @episode.triggers.keys.each do |key| %>
+  <div class="triggers">
+    <%= f.label key %>
+    <% if @episode.triggers[key] == nil %>
+      <%= check_box_tag "triggers[" + key + "]", @episode.triggers[key] %>
+    <% else %>
+      <%= check_box_tag "triggers[" + key + "]", @episode.triggers[key], checked: true %>
+    <% end %>
+  </div>
+<% end %>
+<br><br>
+
+<%= f.submit %>
+<% end %>

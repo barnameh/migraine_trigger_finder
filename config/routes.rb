@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get 'episodes/index'
+
+  get 'episodes/new'
+
+  get 'episodes/create'
+
+  get 'episodes/show'
+
+  get 'episodes/update'
+
+  get 'episodes/destroy'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # root 'welcome#index'
 
@@ -10,4 +22,6 @@ Rails.application.routes.draw do
   get "/auth/fitbit/callback", controller: "fitbit_auth", action: "get_response"
 
   resources :welcome, only: [:index]
+
+  resources :episodes
 end

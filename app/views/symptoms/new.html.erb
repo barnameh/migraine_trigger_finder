@@ -1,0 +1,22 @@
+<%= form_for @symptom do |f| %>
+
+<%= f.datetime_select :start_date_time, :ampm => true, :minute_step => 5 %>
+<br> <br>
+
+<%= f.label :pain_intensity %>
+<%= f.range_field :pain_intensity, in: 1...10, step: 1 %>
+<br><br>
+
+<% @symptom.user_symptoms.keys.each do |key| %>
+  <div class="field">
+    <%= f.label key %>
+    <% if @symptom.user_symptoms[key] == nil %>
+      <%= check_box_tag "user_symptoms[" + key + "]", @symptom.user_symptoms[key] %>
+    <% else %>
+      <%= check_box_tag "user_symptoms[" + key + "]", @symptom.user_symptoms[key], checked: true %>
+    <% end %>
+  </div>
+
+<% end %>
+<%= f.submit %>
+<% end %>

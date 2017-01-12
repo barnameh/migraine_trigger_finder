@@ -1,0 +1,62 @@
+
+  <%= form_for @episode do |f| %>
+
+  <div class="well col-md-6">
+    <%= f.datetime_select :start_date_time, :ampm => true, :minute_step => 5 %>
+    <br><br>
+
+    <%= f.datetime_select :end_date_time, :ampm => true, :minute_step => 5 %>
+    <br>
+  </div>
+
+  <div class="well col-md-6">
+    <%= f.label :intensity %>
+    <%= f.range_field :intensity, in: 1..10, step: 1 %>
+    <br>
+  </div>
+
+
+  <div class="clearfix visible-md-block"></div>
+
+<div class="well">
+  <div class="col-md-6">
+    <h4>Symptoms</h4>
+    <% @episode.symptoms.keys.each do |key| %>
+    <div class="symptoms">
+      <%= f.label key do %>
+        <% if @episode.symptoms[key] == nil %>
+          <%= check_box_tag "symptoms[" + key + "]", @episode.symptoms[key], false, id: "episode_#{key}" %>
+          <%= key.titleize %>
+        <% else %>
+          <%= check_box_tag "symptoms[" + key + "]", @episode.symptoms[key], true, id: "episode_#{key}" %>
+          <%= key.titleize %>
+        <% end %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <h4>Potential Triggers</h4>
+    <% @episode.triggers.keys.each do |key| %>
+    <div class="triggers">
+      <%= f.label key do %>
+        <% if @episode.triggers[key] == nil %>
+          <%= check_box_tag "triggers[" + key + "]", @episode.triggers[key], false, id: "episode_#{key}" %>
+          <%= key.titleize %>
+        <% else %>
+          <%= check_box_tag "triggers[" + key + "]", @episode.triggers[key], true, id: "episode_#{key}" %>
+          <%= key.titleize %>
+        <% end %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+
+<div class="clearfix visible-md-block"></div>
+
+<br><br>
+
+<%= f.submit class: "btn btn-primary"%>
+</div>
+<% end %>

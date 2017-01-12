@@ -1,99 +1,53 @@
 class EpisodesController < ApplicationController
-  COMMON_SYPTOMS ={
-    pounding_pain: nil,
-    pulsating_pain: nil,
-    throubin_pain: nil,
-    worse_pain_if_moving: nil,
-    nausea: nil,
-    vomiting: nil,
-    sesitivity_to_light: nil,
-    sensitivity_to_noise: nil,
-    sensitivity_to_smell: nil,
-    neck_pain: nil,
-    giddiness: nil,
-    nasal_congestion: nil,
-    insomnia: nil,
-    depressed_mood: nil,
-    anxiety: nil,
-    heat: nil,
-    ringing_in_ear: nil,
-    fatique: nil,
-    blurred_vision: nil,
-    moody: nil,
-    diarrhea: nil,
-    confusion: nil,
-    light_headed: nil
-  }
-
-  COMMON_TRIGGERS = {
-    stress: nil,
-    lack_of_sleep: nil,
-    too_much_sleep: nil,
-    interrupted_sleep: nil,
-    anxiety: nil,
-    skipped_meal: nil,
-    weather_change: nil,
-    storm: nil,
-    humidity: nil,
-    neck_pain: nil,
-    alcohol: nil,
-    bright_sun: nil,
-    dehydration: nil,
-    caffeine: nil,
-    processed_food: nil,
-    allergy_reaction: nil,
-    odd_or_strong_smell: nil,
-    rebound_headache: nil,
-    chocolate: nil,
-    sinus: nil,
-    aged_cheese: nil
-  }
-
   def index
+    @episodes = Episode.all
+    @episodes_by_date = @episodes.group_by(&:start_date)
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
   end
 
   def new
     @episode = Episode.new()
     @episode.user_id = 99
-    @episode.symptoms = COMMON_SYPTOMS.dup
-    @episode.triggers = COMMON_TRIGGERS.dup
+    @episode.symptoms = Episode::COMMON_SYPTOMS.dup
+    @episode.triggers = Episode::COMMON_TRIGGERS.dup
   end
 
   def create
-    @episode = Episode.new()
+    @episode = Episode.new(episode_params)
     @episode.user_id = 99
-
-    episode_params
-    @episode.intensity = params[:episode][:intensity]
-    @episode.start_date_time = Time.new(params[:episode]["start_date_time(1i)"],
-                                        params[:episode]["start_date_time(2i)"],
-                                        params[:episode]["start_date_time(3i)"],
-                                        params[:episode]["start_date_time(4i)"],
-                                        params[:episode]["start_date_time(5i)"])
-
-    @episode.end_date_time = Time.new(params[:episode]["end_date_time(1i)"],
-                                      params[:episode]["end_date_time(2i)"],
-                                      params[:episode]["end_date_time(3i)"],
-                                      params[:episode]["end_date_time(4i)"],
-                                      params[:episode]["end_date_time(5i)"])
-
     @episode.symptoms = symptoms_params
     @episode.triggers = triggers_params
-    binding.pry
     if @episode.save
-      # link_to ??
+      render :show
     else
       render :new
     end
   end
 
   def show
+    @episode = Episode.find(params["id"])
+  end
+
+  def edit
+    @episode = Episode.find(params["id"])
+    @episode.symptoms = Episode::COMMON_SYPTOMS.merge(@episode.symptoms)
+    @episode.triggers = Episode::COMMON_TRIGGERS.merge(@episode.triggers)
   end
 
   def update
+    @episode = Episode.find(params["id"])
+    @episode.symptoms = symptoms_params
+    @episode.triggers = triggers_params
+    if @episode.update(episode_params)
+      render :show
+    else
+      render :edit
+    end
   end
 
   def destroy
+    Episode.find(params["id"]).destroy
+    redirect_to episodes_path
   end
 
   private

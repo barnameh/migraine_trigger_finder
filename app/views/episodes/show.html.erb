@@ -1,2 +1,36 @@
-<h1>Episodes#show</h1>
-<p>Find me in app/views/episodes/show.html.erb</p>
+
+<br>
+<div class='well'>
+  <%= link_to "Show Calendar", episodes_path %>
+</div>
+
+<div class='well'>
+<p>
+  <strong>Start Date and Time</strong>
+  <%= @episode.start_date_time.strftime("  %m/%d/%Y %l:%M%P") %>
+</p>
+
+<p>
+  <strong>End Date and Time</strong>
+  <%= @episode.end_date_time.strftime("    %m/%d/%Y %l:%M%P") %>
+</p>
+
+<p>
+  <strong>Intensity</strong>
+  <%= @episode.intensity %> of 10
+</p>
+
+<p>
+  <strong>Symptoms</strong>
+  <%= @episode.symptoms.keys.map {|e| e.titleize }.join(", ") %>
+</p>
+
+<p>
+  <strong>Potential Triggers</strong>
+  <%= @episode.triggers.keys.map {|e| e.titleize }.join(", ") %>
+</p>
+
+<button class='btn btn-info'><%= link_to "Edit", edit_episode_path(@episode.id) %></button>
+<button class='btn btn-warning'><%= link_to "Delete", episode_path(@episode.id), method: :delete %></button>
+
+</div>

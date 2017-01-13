@@ -9,12 +9,17 @@ class FitbitLog
   def get_food_log_for_date(date)
     date_str = date.strftime("%Y-%m-%d")
     response = query_fitbit(@api_prefix + "foods/log/date/#{date_str}.json")
+    food_names = []
+    response["foods"].each {|food| food_names << food["loggedFood"]["name"]}
+    food_names.uniq
   end
 
   def get_water_log_for_date(date)
     date_str = date.strftime("%Y-%m-%d")
     response = query_fitbit(@api_prefix + "foods/log/water/date/#{date_str}.json")
-    #@total_water = response["summary"]["water"]
+    @total_water = response["summary"]["water"].to_f
+    # convert milliliter to ounce
+    (@total_water/29.5735296875).ceil
   end
 
   def update_token

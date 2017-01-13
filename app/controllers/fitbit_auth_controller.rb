@@ -21,6 +21,11 @@ class FitbitAuthController < ApplicationController
     # render json: fitbit_data
   end
 
+  def destroy
+    session.delete("current_user_id")
+    redirect_to root_path
+  end
+
 private
   def set_user_info(fitbit_data)
     fitbit_user_id = fitbit_data["uid"]

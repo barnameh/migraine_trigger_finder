@@ -3,7 +3,8 @@ class WelcomeController < ApplicationController
   rescue_from FitbitLogBadRefreshToken, with: :handle_bad_fitbit_login
 
   def index
-    @water_log = FitbitLog.new(current_user).get_water_log_for_date(Time.new(2016, 12, 21))
+    #  @water_log = FitbitLog.new(current_user).get_water_log_for_date(Time.new(2017, 1, 12))
+    # @food_log = FitbitLog.new(current_user).get_food_log_for_date(Time.new(2017, 1, 12))
   end
 
   private def handle_bad_fitbit_login

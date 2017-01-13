@@ -1,32 +1,29 @@
 
 <br>
-<div class='well'>
-  <%= link_to "Show Calendar", episodes_path %>
-</div>
 
 <div class='well'>
 <p>
-  <strong>Start Date and Time</strong>
+  <strong>Start Date and Time:</strong>
   <%= @episode.start_date_time.strftime("  %m/%d/%Y %l:%M%P") %>
 </p>
 
 <p>
-  <strong>End Date and Time</strong>
+  <strong>End Date and Time:</strong>
   <%= @episode.end_date_time.strftime("    %m/%d/%Y %l:%M%P") %>
 </p>
 
 <p>
-  <strong>Intensity</strong>
+  <strong>Intensity:</strong>
   <%= @episode.intensity %> of 10
 </p>
 
 <p>
-  <strong>Symptoms</strong>
+  <strong>Symptoms:</strong>
   <%= @episode.symptoms.keys.map {|e| e.titleize }.join(", ") %>
 </p>
 
 <p>
-  <strong>Potential Triggers</strong>
+  <strong>Potential Triggers:</strong>
   <%= @episode.triggers.keys.map {|e| e.titleize }.join(", ") %>
 </p>
 
